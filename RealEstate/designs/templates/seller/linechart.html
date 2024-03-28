@@ -1,0 +1,50 @@
+{% extends 'seller/base.html' %}
+{% block sellercontent %}
+<!DOCTYPE HTML>
+<html>
+<head>  
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Simple Line Chart"
+	},
+	axisY:{
+		includeZero: false
+	},
+	data: [{        
+		type: "line",       
+		dataPoints: [
+		{% for locs in loc %}
+           { y: {{locs.total}},markerColor: "red", markerType: "cross" },
+		{% endfor %}
+			/*{ y: 450 ,markerColor: "red", markerType: "cross"},
+			{ y: 414 ,markerColor: "red", markerType: "cross"},
+			{ y: 520 ,markerColor: "red", markerType: "cross"},
+			{ y: 460 ,markerColor: "red", markerType: "cross"},
+			{ y: 450 ,markerColor: "red", markerType: "cross"},
+			{ y: 500 ,markerColor: "red", markerType: "cross"},
+			{ y: 480 ,markerColor: "red", markerType: "cross"},
+			{ y: 480 ,markerColor: "red", markerType: "cross"},
+			{ y: 410 ,markerColor: "red", markerType: "cross" },
+			{ y: 500 ,markerColor: "red", markerType: "cross"},
+			{ y: 480 ,markerColor: "red", markerType: "cross"},
+			{ y: 510 ,markerColor: "red", markerType: "cross"}*/
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+</head>
+<body>
+<a href="{% url 'sellers:chart' %}" style="margin-left:550px;border:1px solid white;text-decoration:none;padding:10px;color:white;">Click Here For Pie Chart</a>
+<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 100px 0px 0px 150px;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends 'seller/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+input[type=submit],input[type=text]{
+background:white;
+border:1px solid black;
+padding:5px;
+border-radius:8px;
+}
+input[type=submit]:hover{
+background:black;
+color:white;
+}
+#myBtn{
+margin-left:40%;
+}
+</style>
+{%if request.path != '/seller/location/spot/'%}
+<input type="submit" name="submit" value="Click Here to Save" id="myBtn" />
+{% else %}
+<div style="margin-top:5%;margin-left:75%;position:absolute;z-index:10;">
+<form method="post" autocomplete=off>
+{% csrf_token %}
+{{ form.locaddress }}
+<input type="submit" name="submit" value="submit" />
+</form>
+</div>
+<div id="googleMap" style="width:100%;height:88%;position:absolute;"></div>
+{% endif %}
+<div id="map" style="width:100%;height:80%;margin-top:50px;"></div>
+
+
+<!--  *** POP UP MENU *** -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+      <form method="post">
+	  {% csrf_token %}
+	  <table style="margin:auto;padding:10%">
+		<tr>
+			<td>
+				<p style="margin-top:25px;">Latitude</p>
+			</td>
+			<td>
+				<p style="margin-top:25px;">{{lati}}</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="margin-top:25px;">Longitude</p>
+			</td>
+			<td>
+				<p style="margin-top:25px;">{{loni}}</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="margin-top:25px;">Address</p>
+			</td>
+			<td>
+				<p style="margin-top:25px;">{{address}}</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="margin-top:25px;">Location</p>
+			</td>
+			<td>
+				<p style="margin-top:25px;">{{forms.locaddress}}</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="margin-top:25px;">Location Purpose</p>
+			</td>
+			<td>
+				<p style="margin-top:25px;">{{forms.locationusage}}</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="margin-top:25px;">Other Details</p>
+			</td>
+			<td>
+				<p style="margin-top:25px;">{{forms.otherdetails}}</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="margin-top:25px;">Related to</p>
+			</td>
+			<td>
+				<select name="item_id" style="margin-top:25px;">
+					{% for entry in items %}
+						<option value="{{ entry.id }}">{{ entry.address }}</option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="submit" name="submiting" value="submit" style="width:50%;margin-left:25px;margin-top:25px;" /></td>
+		</tr>
+	  </table>
+	  </form>
+    </div>
+    <div class="modal-footer">
+      
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+function myMap() {
+var mapProp= {
+    center:new google.maps.LatLng(20.5937,78.9629),
+    zoom:5,
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCthblLTE___47JWZjTjKjEfCxq0ofxBCU&callback=myMap"></script>
+
+
+
+<script>
+function myMap() {
+  var myCenter = new google.maps.LatLng({{lati}},{{loni}});
+  var mapCanvas = document.getElementById("map");
+  var mapOptions = {center: myCenter, zoom: 15,mapTypeId:google.maps.MapTypeId.HYBRID};
+  var map = new google.maps.Map(mapCanvas, mapOptions);
+  var marker = new google.maps.Marker({position:myCenter});
+  marker.setMap(map);
+
+  var infowindow = new google.maps.InfoWindow({
+    content: {{address}}
+  });
+  infowindow.open(map,marker);
+}
+</script>
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCthblLTE___47JWZjTjKjEfCxq0ofxBCU&callback=myMap"></script>
+
+{% endblock %}

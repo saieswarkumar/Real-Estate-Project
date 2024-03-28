@@ -1,0 +1,391 @@
+{% extends 'buyer/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+<script src="{% static 'buyer/js/jssor.slider-26.7.0.min.js' %}" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    jssor_1_slider_init = function() {
+        var jssor_1_SlideshowTransitions = [
+           {$Duration:800,$Opacity:2}
+        ];
+        var jssor_1_options = {
+            $AutoPlay: 1,
+            $Cols: 1,
+            $Align: 0,
+            $SlideshowOptions: {
+                $Class: $JssorSlideshowRunner$,
+                $Transitions: jssor_1_SlideshowTransitions,
+                $TransitionsOrder: 1
+              },
+            $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$
+            },
+            $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$
+            }
+        };
+        var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+        var MAX_WIDTH = 980;
+        function ScaleSlider() {
+            var containerElement = jssor_1_slider.$Elmt.parentNode;
+            var containerWidth = containerElement.clientWidth;
+            if (containerWidth) {
+                var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+                jssor_1_slider.$ScaleWidth(expectedWidth);
+            }
+            else {
+                window.setTimeout(ScaleSlider, 30);
+            }
+        }
+        ScaleSlider();
+        $Jssor$.$AddEvent(window, "load", ScaleSlider);
+        $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+        $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        };
+    </script>
+    <style>
+        /* jssor slider loading skin spin css */
+        .jssorl-009-spin img {
+            animation-name: jssorl-009-spin;
+            animation-duration: 1.6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes jssorl-009-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        .jssorb051 .i {position:absolute;cursor:pointer;}
+        .jssorb051 .i .b {fill:#fff;fill-opacity:0.5;}
+        .jssorb051 .i:hover .b {fill-opacity:.7;}
+        .jssorb051 .iav .b {fill-opacity: 1;}
+        .jssorb051 .i.idn {opacity:.3;}
+
+        .jssora051 {display:block;position:absolute;cursor:pointer;}
+        .jssora051 .a {fill:none;stroke:#fff;stroke-width:360;stroke-miterlimit:10;}
+        .jssora051:hover {opacity:.8;}
+        .jssora051.jssora051dn {opacity:.5;}
+        .jssora051.jssora051ds {opacity:.3;pointer-events:none;}
+        
+        .maincontaine{
+        margin:auto;
+        width:1100px;
+        background:black;
+        padding:20px;
+        }
+        
+        .holder{
+        margin:auto;
+        background:black;
+        width:980px;
+        }
+        .holder>hr{
+        border:1px solid black;
+        }
+        .tabcontains{
+        margin:auto;
+        width:1020px;
+        }
+        .tbct#child{
+        margin: 0 auto;
+        }
+        #map {
+        height: 100%;
+      }
+      .myButton
+      {
+        margin:25px 0px 0px 150px;
+        padding-right:20px;
+        padding-left:20px;
+        padding-top:5px;
+        padding-bottom:5px;
+      }
+      .myButton:hover
+      {
+        border:1px solid white;
+        background:black;
+        color:white;
+      }
+    </style>
+    
+  <div class="maincontaine">    
+    <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:980px;height:380px;overflow:hidden;visibility:hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="{% static 'buyer/img/spin.svg' %}" />
+        </div>
+        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:380px;overflow:hidden;">
+            <div data-p="170.00">
+                <img data-u="image" src="{{prop_list.houseimage.url}}" />
+            </div>
+            <div data-p="170.00">
+                <img data-u="image" src="{{prop_list.houseimage2.url}}" />
+            </div>
+            <div data-p="170.00">
+                <img data-u="image" src="{{prop_list.houseimage3.url}}" />
+            </div>
+        </div>
+        <!-- Bullet Navigator -->
+        <div data-u="navigator" class="jssorb051" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+            <div data-u="prototype" class="i" style="width:16px;height:16px;">
+                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                    <circle class="b" cx="8000" cy="8000" r="5800"></circle>
+                </svg>
+            </div>
+        </div>
+        <!-- Arrow Navigator -->
+        <div data-u="arrowleft" class="jssora051" style="width:55px;height:55px;top:0px;left:25px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <polyline class="a" points="11040,1920 4960,8000 11040,14080 "></polyline>
+            </svg>
+        </div>
+        <div data-u="arrowright" class="jssora051" style="width:55px;height:55px;top:0px;right:25px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <polyline class="a" points="4960,1920 11040,8000 4960,14080 "></polyline>
+            </svg>
+        </div>
+    </div>
+    <div class="holder">
+    <hr>
+    <table>
+    <tr>
+    <td><img src="{% static 'buyer/img/bed.png' %}" style="margin-top:-10px;"></td>
+    <td><p style="color:white;padding-top:10px;margin-left:13px;">{{prop_list.bedrooms}} Beds</p></td>
+    <td><img src="{% static 'buyer/img/bath.png' %}" style="margin-left:40px;margin-top:-10px;"></td>
+    <td><p style="color:white;padding-top:10px;margin-left:20px;">{{prop_list.bathrooms}}</p></td>
+    <td><img src="{% static 'buyer/img/plot.png' %}" style="margin-left:40px;margin-top:-10px;"></td>
+    <td><p style="color:white;padding-top:10px;margin-left:20px;">{{prop_list.ploatarea}} Sqft</p></td>
+    </tr>
+    </table>
+    <hr>
+    </div>
+    <div class="container tabcontains">
+    <ul class="nav nav-tabs" style="padding-left:15px;">
+        <li class="active"><a href="#home">Property Details</a></li>
+        <li><a href="#menu1">Location Details</a></li>
+        <li><a href="#menu2">Agent Details</a></li>
+        <li><a href="#menu3">Make Request</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+        <table  style="margin:auto;">
+        <tr>
+        <td colspan="3" align="center"><h3 style="color:white;text-transform:uppercase;">Property Details</h3></td>
+        </tr>
+        <tr>
+        <td>
+            <table >
+                <tr>
+                    <td><p style="color:white;">City</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.city}}</p></td>
+                </tr>
+                <tr>
+                    <td><p style="color:white;">Address</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.address}}</p></td>
+                </tr>
+                <tr>
+                    <td><p style="color:white;">Balconies</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.balconies}}</p></td>
+                </tr>
+                <tr>
+                    <td><p style="color:white;">Total Rooms</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.totalrooms}}</p></td>
+                </tr>
+            </table>
+        </td>
+        <td style="width:100px;" align="center"><div style="background:white;width:1px;height:120px;"></div></td>
+        <td>
+            <table>
+                <tr>
+                    <td><p style="color:white;">Total Floors</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.totalfloors}}</p></td>
+                </tr>
+                <tr>
+                    <td><p style="color:white;">Neighbour</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.neighbour}}</p></td>
+                </tr>
+                <tr>
+                    <td><p style="color:white;">About Property</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.aboutprop}}</p></td>
+                </tr>
+                <tr>
+                    <td><p style="color:white;">Cost</p></td>
+                    <td><p style="color:white;padding-left:10px;padding-right:10px;">:</p></td>
+                    <td><p style="color:white;">{{prop_list.cost}}</p></td>
+                </tr>
+            </table>
+        </td>
+        </tr>
+        </table>        
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Location Details</h3>
+      <div id="map"></div>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      {% if prop_list.agents is 0 %}
+        <h3>Agent Details</h3>
+        <p>There is no Agents for this Property</p>
+      {% else %}
+      <table style="margin:auto;">
+        <tr>
+        <td colspan="3" align="center" style="text-transform:uppercase;color:white;"><h3>Agent Details</h3></td>
+        </tr>
+        <tr>
+            <td><p style="color:red">Agent Name</p></td>
+            <td><p style="color:red;padding-left:30px;padding-right:30px;">:</p></td>
+            <td><p style="color:red">{{ agent_det.username}}</p></td>
+        </tr>
+        <tr>
+            <td><p style="color:red">Email</p></td>
+            <td><p style="color:red;padding-left:30px;padding-right:30px;">:</p></td>
+            <td><p style="color:red">{{ agent_det.email}}</p></td>
+        </tr>
+        <tr>
+            <td><p style="color:red">Full Name</p></td>
+            <td><p style="color:red;padding-left:30px;padding-right:30px;">:</p></td>
+            <td><p style="color:red">{{ agent_det.first_name}} {{ agent_det.last_name}}</p></td>
+        </tr>
+        <tr>
+            <td><p style="color:red">location</p></td>
+            <td><p style="color:red;padding-left:30px;padding-right:30px;">:</p></td>
+            <td><p style="color:red">{{ agent_det.location}}</p></td>
+        </tr>
+      </table>
+      {% endif %}
+    </div>
+    <div id="menu3" class="tab-pane fade">
+    <form method="post">
+    {% csrf_token %}
+     <table style="margin:auto">
+     <tr>
+     <td colspan="3"><h3 style="color:white;text-transform:uppercase;margin-left:100px;">Make Request</h3></td>
+     </tr>
+     <tr>
+     <td><p style="color:white;">Price</p></td>
+     <td><p style="color:white;margin-left:20px;margin-right:20px;">:</p></td>
+     <td>{{form.price}}</td>
+     </tr>
+     <tr>
+     <td><p style="color:white;">Status</p></td>
+     <td><p style="color:white;margin-left:20px;margin-right:20px;">:</p></td>
+     <td>{{form.status}}</td>
+     </tr>
+     <tr>
+     <td><p style="color:white;">Request Details</p></td>
+     <td><p style="color:white;margin-left:20px;margin-right:20px;">:</p></td>
+     <td>{{form.message}}</td>
+     </tr>
+     <tr>
+     <td colspan="3"><input type="submit" name="submit" value="submit" class="myButton" /></td>
+     </tr>
+      </table>
+      </form>
+    </div>
+  </div>
+    <hr>
+</div>
+    
+    </div>
+    <script type="text/javascript">jssor_1_slider_init();</script>
+    <script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+    $('.nav-tabs a').on('shown.bs.tab', function(event){
+        var x = $(event.target).text();         // active tab
+        var y = $(event.relatedTarget).text();  // previous tab
+        $(".act span").text(x);
+        $(".prev span").text(y);
+    });
+});
+</script>
+
+<script>
+
+      // The following example creates complex markers to indicate beaches near
+      // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+      // to the base of the flagpole.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: {lat: {{latt}}, lng: {{lonn}}}
+        });
+
+        setMarkers(map);
+      }
+
+      // Data for the markers consisting of a name, a LatLng and a zIndex for the
+      // order in which these markers should display on top of each other.
+      var beaches = [
+	  {% for loc in loc_det %}
+		['{{loc.locaddress}}',{{loc.lati}},{{loc.longi}},1],
+	  {% endfor %}
+        /*['Bondi Beach', -33.890542, 151.274856, 4],
+        ['Coogee Beach', -33.923036, 151.259052, 5],
+        ['Cronulla Beach', -34.028249, 151.157507, 3],
+        ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+        ['Maroubra Beach', -33.950198, 151.259302, 1]*/
+      ];
+
+      function setMarkers(map) {
+        // Adds markers to the map.
+
+        // Marker sizes are expressed as a Size of X,Y where the origin of the image
+        // (0,0) is located in the top left of the image.
+
+        // Origins, anchor positions and coordinates of the marker increase in the X
+        // direction to the right and in the Y direction down.
+        var image = {
+          url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(20, 32),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 32)
+        };
+        // Shapes define the clickable region of the icon. The type defines an HTML
+        // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+        // The final coordinate closes the poly by connecting to the first coordinate.
+        var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+        for (var i = 0; i < beaches.length; i++) {
+          var beach = beaches[i];
+          var marker = new google.maps.Marker({
+            position: {lat: beach[1], lng: beach[2]},
+            map: map,
+            icon: "{% static 'map/marks.png' %}",
+            shape: shape,
+            title: beach[0],
+            zIndex: beach[3]
+          });
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCthblLTE___47JWZjTjKjEfCxq0ofxBCU&callback=initMap">
+    </script>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'agent/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/mystyle.css' %}">
+<table class="tblform">
+<tr>
+<th>City</th>
+<th>Area</th>
+<th>Details</th>
+<th>House1</th>
+<th>House2</th>
+<th>House3</th>
+<th colspan="2">View</th>
+</tr>
+{% for prop in prop_list%}
+<tr>
+<td>{{prop.city}}</td>
+<td>{{prop.ploatarea}}</td>
+<td><p>
+BedRooms : {{prop.bedrooms}}<br/>
+BathRooms : {{prop.bathrooms}}<br/>
+TotalRooms : {{prop.totalrooms}}<br/>
+TotalRooms : {{prop.totalfloors}}
+</p></td>
+<td><a href="{{ prop.houseimage.url }}" target="_blank"><img src="{{ prop.houseimage.url }}" style="width:100px;height:100px;"></a></td>
+<td><a href="{{ prop.houseimage2.url }}" target="_blank"><img src="{{ prop.houseimage2.url }}" style="width:100px;height:100px;"></a></td>
+<td><a href="{{ prop.houseimage3.url }}" target="_blank"><img src="{{ prop.houseimage3.url }}" style="width:100px;height:100px;"></a></td>
+<td><a href="{% url 'agents:aboutprop' prop.id %}">View Property Details</a></td>
+    <td><a href="{% url 'agents:makerequest' prop.id user.id %}">Make Request</a></td>
+{% endfor %}
+</tr>
+</table>
+{% endblock %}

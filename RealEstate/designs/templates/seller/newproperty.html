@@ -1,0 +1,98 @@
+{% extends 'seller/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+<style>
+.addformdet{
+height:50%;
+margin:10% 0 0 35%;
+background:rgba(5,18,27,0.5);
+float:left;
+padding:2%;
+}
+input[type=submit]
+{
+	background:none;
+	border:1px solid white;
+	color:white;
+	text-transform:uppercase;
+}
+input[type=submit]:hover{
+	background:white;
+	color:black;
+}
+.main{
+width:100%;
+height:100%;
+}
+</style>
+<div class="main">
+<img src="{% static 'common/images/upload.gif' %}" style="margin-top:200px;margin-left:100px;"/>
+<div class="addformdet" style="margin-top:-350px;">
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<table>
+<tr>
+<td><span style="color:white;">{{form.city.label}}</span></td>
+<td>{{form.city}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.address.name}}</span></td>
+<td>{{form.address}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.ploatarea.label}}</span></td>
+<td>{{form.ploatarea}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.bedrooms.label}}</span></td>
+<td>{{form.bedrooms}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.bathrooms.label}}</span></td>
+<td>{{form.bathrooms}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.balconies.label}}</span></td>
+<td>{{form.balconies}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.totalrooms.label}}</span></td>
+<td>{{form.totalrooms}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.totalfloors.label}}</span></td>
+<td>{{form.totalfloors}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.houseimage.label}}</span></td>
+<td>{{form.houseimage}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.houseimage2.label}}</span></td>
+<td>{{form.houseimage2}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.houseimage3.label}}</span></td>
+<td>{{form.houseimage3}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.neighbour.label}}</span></td>
+<td>{{form.neighbour}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.cost.label}}</span></td>
+<td>{{form.cost}}</td>
+</tr>
+<tr>
+<td><span style="color:white;">{{form.aboutprop.label}}</span></td>
+<td>{{form.aboutprop}}</td>
+</tr>
+<tr>
+<td colspan="2"><input type="submit" name="submit" value="submit" style="margin:15% 0 0 30%;padding:5%;"></td>
+</tr>
+</table>
+</form>
+</div>
+<img src="{% static 'common/images/upload2.gif' %}" style="margin-left:500px;width:400px;height:400px;"/>
+</div>
+{% endblock %}

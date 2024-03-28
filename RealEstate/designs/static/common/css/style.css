@@ -1,0 +1,13 @@
+*{
+padding:0px;
+margin:0px;
+}
+body{
+	background-image: url(/static/login/images_login/banner3.jpg);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+.addhouseform{
+	width:250px;
+	background:white;
+}

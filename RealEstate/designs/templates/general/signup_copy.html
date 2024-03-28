@@ -1,0 +1,29 @@
+{% block content %}
+<div class=" regform">
+sdf
+<div class="loginform">
+  <h2 class="loginhead">Sign up</h2>
+  <form method="post" autocomplete=off>
+    {% csrf_token %}
+	<table>
+    {% for field in form %}
+	  <tr>
+	  <td>
+        <p>{{ field.label_tag }}</p><br>
+        </td><td>
+		{{ field }}
+		</td>
+        {% if field.help_text %}
+          <td><small style="color: white">{{ field.help_text }}</small></td>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+    {% endfor %}
+	</tr>
+	</table>
+    <button type="submit">Sign up</button>
+  </form>
+  </div>
+  </div>
+{% endblock %}

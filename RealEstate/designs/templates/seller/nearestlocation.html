@@ -1,0 +1,27 @@
+{% extends 'seller/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+<table>
+<tr>
+<th>City</th>
+<th>Area</th>
+<th>Details</th>
+<th>House1</th>
+<th>View</th>
+</tr>
+{% for prop in prop_list%}
+<tr>
+<td>{{prop.city}}</td>
+<td>{{prop.ploatarea}}</td>
+<td><p style="color:white">
+BedRooms : {{prop.bedrooms}}<br/>
+BathRooms : {{prop.bathrooms}}<br/>
+TotalRooms : {{prop.totalrooms}}<br/>
+TotalRooms : {{prop.totalfloors}}
+</p></td>
+<td><a href="{{ prop.houseimage.url }}" target="_blank"><img src="{{ prop.houseimage.url }}" style="width:100px;height:100px;"></a></td>
+<td><a href="" style="color:white">View Details</a></td>
+{% endfor %}
+</tr>
+</table>
+{% endblock %}

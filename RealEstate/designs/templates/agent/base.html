@@ -1,0 +1,17 @@
+{% extends 'common/base.html' %}
+    {% load staticfiles %}
+        {% block content %}
+         <link rel="stylesheet" href="{% static 'common/assets/css/styles.css' %}" />
+            <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
+                <nav style="margin:auto;margin-right:1%;margin-top:2%;margin-bottom:2%;">
+                    <ul class="fancyNav">
+                        <li id="home"><a href="{% url 'agents:home' %}" style="color:white;">Home</a></li>
+                        <li id="news"><a href="{% url 'agents:buyerrequests' %}" style="color:white;">Buyer Requests</a></li>
+                        <li id="about"><a href="{% url 'agents:chat' %}" style="color:white;">Chat</a></li>
+                        <li id="services"><a href="{% url 'generals:logout' %}" style="color:white;">Logout</a></li>
+                    </ul>
+                </nav>
+            
+        {% block sellercontent %}
+	{% endblock %}
+{% endblock %}

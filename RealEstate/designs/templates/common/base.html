@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<html>
+<head>
+<link rel="shortcut icon" type="image/png" href="{% static 'login/images_login/img1.png' %}" />
+<link href="{% static 'common/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+ *{
+            padding:0px;
+            margin:0px;
+        }
+        body{
+            height:100%;
+            width:100%;
+        }
+.mySlides {display:none}
+.w3-left, .w3-right, .w3-badge {cursor:pointer}
+.w3-badge {height:13px;width:13px;padding:0}
+</style>
+<title>Real Estate</title>
+  <meta charset="utf-8">
+</head>
+<body>
+{% block content %}
+{% endblock %}
+</body>
+</html>

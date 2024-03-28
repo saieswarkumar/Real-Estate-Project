@@ -1,0 +1,35 @@
+{% extends 'agent/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+<style>
+a.ahr:hover{
+text-transform:uppercase;
+text-decoration:none;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/mystyle.css' %}">
+<table class="tblform">
+    <tr>
+        <th><span class="wrdh">City</span></th>
+        <th><span class="wrdh">Address</span></th>
+        <th colspan="3"><span class="wrdh">Images</span></th>
+        <th><span class="wrdh">Price</span></th>
+        <th><span class="wrdh">Message</span></th>
+        <th><span class="wrdh">Status</span></th>
+    </tr>
+{% for req in req_prop %}
+{% if req.status == 'unsold' %}
+    <tr>
+        <td><span class="wrd">{{req.requestedProperty.city}}</span></td>
+        <td><span class="wrd">{{req.requestedProperty.address}}</span></td>
+        <td><img src="{{req.requestedProperty.houseimage.url}}" style="width:100px;height:100px;"></td>
+        <td><img src="{{req.requestedProperty.houseimage2.url}}" style="width:80px;height:100px;"></td>
+        <td><img src="{{req.requestedProperty.houseimage3.url}}" style="width:100px;height:100px;"></td>
+        <td><span class="wrd">{{req.price}}</span></td>
+        <td><span class="wrd">{{req.message}}</span></td>
+        <td><span class="wrd"><a href="{% url 'agents:updreq' req.id %}" class="ahr">{{req.status}}</a></span></td>
+{% endif %}
+        {% endfor %}
+    </tr>
+</table>
+{% endblock %}

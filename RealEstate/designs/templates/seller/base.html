@@ -1,0 +1,18 @@
+{% extends 'common/base.html' %}
+    {% load staticfiles %}
+        {% block content %}
+        <link rel="stylesheet" href="{% static 'common/assets/css/styles.css' %}" />
+            <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
+            <nav style="margin-left:15%;margin-top:2%;margin-bottom:2%;width:100%;">
+                    <ul class="fancyNav">
+                        <li id="home"><a href="{% url 'sellers:home' %}" style="color:white;">Home</a>
+                        <li id="services"><a href="{% url 'sellers:uploadproperty' %}" style="color:white;">Add Property Details</a>
+                        <li id="news"><a href="{% url 'sellers:locationdetails' %}" style="color:white;">Add Location Details</a>
+                        <li id="about"><a href="{% url 'sellers:chat' %}" style="color:white;">Chat</a>
+                        <li id="about"><a href="{% url 'sellers:chart' %}" style="color:white;">Chart</a>
+                        <li id="contact"><a href="{% url 'generals:logout' %}" style="color:white;">Logout</a></li>
+                    </ul>
+                </nav>           
+        {% block sellercontent %}
+	{% endblock %}
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'seller/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/mystyle.css' %}">
+<div style="width:80px;height:35%;margin-bottom:3%;">
+<table class="tblform">
+<tr>
+<th>Address</th>
+<th>Type</th>
+<th>Location Name</th>
+<th>Lattitude</th>
+<th>Lognitude</th>
+<th>Other Details</th>
+</tr>
+{% for prop in prop_list%}
+<tr>
+<td>{{prop.locaddress}}</td>
+<td>{{prop.locationusage}}</td>
+<td>{{prop.locationname}}</td>
+<td>{{prop.lati}}</td>
+<td>{{prop.longi}}</td>
+<td>{{prop.otherdetails}}</td>
+{% endfor %}
+</tr>
+</table>
+</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Complex icons</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" style="width:90%;height:45%;margin:auto;"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          mapTypeId:google.maps.MapTypeId.HYBRID,
+          center: {lat: {{latt}}, lng: {{lonn}}}
+        });
+
+        setMarkers(map);
+      }
+      var beaches = [
+      {% for prop in prop_list%}
+        {% if prop.locationusage == 'prop' %}
+            ['{{prop.locaddress}}', {{prop.lati}}, {{prop.longi}}, 1, "{% static 'map/default.png' %}"],
+        {% elif prop.locationusage == 'near' %}
+            ['{{prop.locaddress}}', {{prop.lati}}, {{prop.longi}}, 1, "{% static 'map/default.png' %}"],
+        {% else %}
+            ['{{prop.locaddress}}', {{prop.lati}}, {{prop.longi}}, 1, "{% static 'map/default.png' %}"],
+        {% endif %}
+      {% endfor %}
+      ];
+
+      function setMarkers(map) {
+        var image = {
+          url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          size: new google.maps.Size(20, 32),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(0, 32)
+        };
+        var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+        for (var i = 0; i < beaches.length; i++) {
+          var beach = beaches[i];
+          var marker = new google.maps.Marker({
+            position: {lat: beach[1], lng: beach[2]},
+            map: map,
+            icon: beach[4],
+            shape: shape,
+            title: beach[0],
+            zIndex: beach[3]
+          });
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCthblLTE___47JWZjTjKjEfCxq0ofxBCU&callback=initMap">
+    </script>
+  </body>
+</html>
+{% endblock %}

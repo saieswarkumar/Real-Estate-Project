@@ -1,0 +1,51 @@
+{% extends 'buyer/base.html' %}
+{% load staticfiles %}
+{% block sellercontent %}
+
+<style>
+div.gallery {
+    margin: 15px 15px 15px 35px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+div.holder{
+height:80%;
+width:95%;
+background:rgba(0,0,0,0.5);
+margin:2%;
+float:left;
+overflow:auto;
+}
+</style>
+<div class="holder">
+    {% for prop in prop_list%}
+    <div class="gallery">
+        <a href="{% url 'buyers:aboutprop' prop.id %}">
+            <img src="{{ prop.houseimage.url }}">
+        </a>
+        <div class="desc">
+            <table>
+                <tr><td><span style="color:white">{{prop.city}}</span></td></tr>
+                <tr><td><span style="color:white">{{prop.ploatarea}}</span></td></tr>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
